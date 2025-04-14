@@ -1,0 +1,15 @@
+### GET request to fetch all workers
+GET http://localhost:3000/workers
+
+### GET request to fetch a specific worker by ID
+GET http://localhost:3000/workers/1
+
+### POST request to create a new worker
+POST http://localhost:3000/workers
+Content-Type: application/json
+
+{
+  "start_date": "2023-10-01",
+  "name": "John Doe",
+  "salary": 50000
+}
