@@ -1,7 +1,7 @@
 // src/middlewares/auth.middleware.js
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = 'konectaSecure'; // En producción, usar variables de entorno
+const JWT_SECRET = 'konectaSecure';
 
 export const verifyToken = (req, res, next) => {
     const token = req.header('Authorization')?.split(' ')[1];
