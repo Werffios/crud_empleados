@@ -5,11 +5,18 @@ GET http://localhost:3000/workers
 GET http://localhost:3000/workers/1
 
 ### POST request to create a new worker
-POST http://localhost:3000/workers
+POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-  "start_date": "2023-10-01",
-  "name": "John Doe",
-  "salary": 50000
+  "username": "admin",
+  "password": "password123"
 }
+
+### GET request to fetch all workers with authorization
+GET http://localhost:3000/workers
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTc0NDYxMjg0MiwiZXhwIjoxNzQ0NjE2NDQyfQ.fBVumU1XgmeQKZE1J0QwOJW79BniSBBSmpptYjPkMwg
+
+
+
+
