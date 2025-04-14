@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { pool } from '../database/connection.js'
+import { verifyToken } from '../middlewares/auth.middleware.js';
 
 const router = Router();
 
@@ -13,13 +14,13 @@ const router = Router();
 }
 */
 
-router.get('/workers', async (req, res) => {
+router.get('/workers', verifyToken, async (req, res) => {
     pool.query('SELECT * FROM empleado').then((result) => {
         res.send(result.rows);
     })
 })
 
-router.get('/workers/:id', async (req, res) => {
+router.get('/workers/:id', verifyToken, async (req, res) => {
     const { id } = req.params;
     pool.query('SELECT * FROM empleado WHERE id = $1', [id]).then((result) => {
         if (result.rows.length === 0) {
@@ -29,7 +30,7 @@ router.get('/workers/:id', async (req, res) => {
     })
 })
 
-router.post('/workers', async (req, res) => {
+router.post('/workers', verifyToken, async (req, res) => {
     const { fecha_ingreso, nombre, salario } = req.body;
     pool.query('INSERT INTO empleado (fecha_ingreso, nombre, salario) VALUES ($1, $2, $3)', [fecha_ingreso, nombre, salario]).then((result) => {
         // send the created worker
@@ -45,7 +46,7 @@ router.post('/workers', async (req, res) => {
     })
 })
 
-router.put('/workers/:id', async (req, res) => {
+router.put('/workers/:id', verifyToken, async (req, res) => {
     const { id } = req.params;
     const { fecha_ingreso, nombre, salario } = req.body;
 
@@ -65,7 +66,7 @@ router.put('/workers/:id', async (req, res) => {
     })
 })
 
-router.delete('/workers/:id', async (req, res) => {
+router.delete('/workers/:id', verifyToken, async (req, res) => {
     const { id } = req.params;
 
     pool.query('DELETE FROM empleado WHERE id = $1', [id]).then((result) => {
